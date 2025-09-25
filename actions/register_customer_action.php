@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once '../settings/core.php';
 
 // Enable error reporting for debugging
 error_reporting(E_ALL);
@@ -19,14 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// Check if user is already logged in
-if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
-    echo json_encode([
-        'success' => false,
-        'message' => 'You are already logged in'
-    ]);
-    exit;
-}
+// Allow registration regardless of current session state
 
 // Get JSON input or form data
 $input = json_decode(file_get_contents('php://input'), true);
@@ -61,7 +54,7 @@ try {
     // Prepare arguments for register method
     $kwargs = [
         'name' => trim($name),
-        'email' => trim($email),
+        'email' => strtolower(trim($email)),
         'password' => $password,
         'phone_number' => trim($phone_number),
         'country' => trim($country),

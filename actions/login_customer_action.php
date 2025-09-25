@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once '../settings/core.php';
 
 require_once '../controllers/customer_controller.php';
 
@@ -53,14 +53,21 @@ try {
     if ($result['success']) {
         $customer = $result['customer'];
         
-        // Set session variables
+        // Regenerate session ID to prevent fixation
+        session_regenerate_id(true);
+
+        // Set session variables (standardize identifiers)
+        $_SESSION['id'] = $customer['customer_id'];
         $_SESSION['customer_id'] = $customer['customer_id'];
         $_SESSION['customer_name'] = $customer['customer_name'];
         $_SESSION['customer_email'] = $customer['customer_email'];
         $_SESSION['customer_contact'] = $customer['customer_contact'];
         $_SESSION['user_role'] = $customer['user_role'];
         $_SESSION['logged_in'] = true;
-        $_SESSION['login_time'] = time();
+        $now = time();
+        $_SESSION['created_at'] = $_SESSION['created_at'] ?? $now;
+        $_SESSION['last_activity'] = $now;
+        $_SESSION['login_time'] = $now;
         
         // Add success message
         $result['message'] = 'Login successful! Welcome back, ' . $customer['customer_name'];

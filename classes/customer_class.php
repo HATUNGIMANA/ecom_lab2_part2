@@ -53,8 +53,9 @@ class Customer extends db_connection
      */
     public function getCustomerByEmail($email)
     {
+        $normalized = strtolower(trim($email));
         $stmt = $this->db->prepare("SELECT * FROM customer WHERE customer_email = ?");
-        $stmt->bind_param("s", $email);
+        $stmt->bind_param("s", $normalized);
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
     }
@@ -92,8 +93,9 @@ class Customer extends db_connection
     public function createCustomer($name, $email, $password, $phone_number, $country, $city, $role)
     {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $normalized = strtolower(trim($email));
         $stmt = $this->db->prepare("INSERT INTO customer (customer_name, customer_email, customer_pass, customer_contact, customer_country, customer_city, user_role) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssssi", $name, $email, $hashed_password, $phone_number, $country, $city, $role);
+        $stmt->bind_param("ssssssi", $name, $normalized, $hashed_password, $phone_number, $country, $city, $role);
         if ($stmt->execute()) {
             return $this->db->insert_id;
         }

@@ -100,7 +100,7 @@ class CustomerController
             $customer = new Customer();
             
             // Check if email already exists
-            $existingCustomer = $customer->getCustomerByEmail($email);
+            $existingCustomer = $customer->getCustomerByEmail(strtolower(trim($email)));
             if ($existingCustomer) {
                 return [
                     'success' => false,
@@ -108,7 +108,7 @@ class CustomerController
                 ];
             }
             
-            $customerId = $customer->createCustomer($name, $email, $password, $phone_number, $country, $city, $role);
+            $customerId = $customer->createCustomer($name, strtolower(trim($email)), $password, $phone_number, $country, $city, $role);
             
             if ($customerId) {
                 return [
