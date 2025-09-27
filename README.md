@@ -180,6 +180,3 @@ This project is part of an e-commerce lab assignment and is for educational purp
 - **v2.0** - Complete customer login/registration system with debugging tools
 
 ---
-
-**Note:** This project implements Part 2 of the e-commerce lab focusing on customer authentication functionality.
-

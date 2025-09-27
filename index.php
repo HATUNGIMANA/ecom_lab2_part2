@@ -47,6 +47,14 @@ session_start();
 		<span class="me-2">Menu:</span>
 		<?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
 			<span class="me-2">Welcome, <?php echo htmlspecialchars($_SESSION['customer_name']); ?>!</span>
+			<?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 1): ?>
+				<a href="admindsh.php" class="btn btn-sm btn-warning">
+					<i class="fas fa-tachometer-alt me-1"></i>Admin Dashboard
+				</a>
+				<a href="admin/category.php" class="btn btn-sm btn-info">
+					<i class="fas fa-tags me-1"></i>Category
+				</a>
+			<?php endif; ?>
 			<a href="login/logout.php" class="btn btn-sm btn-custom">
 				<i class="fas fa-sign-out-alt me-1"></i>Logout
 			</a>
