@@ -95,8 +95,8 @@ try {
         echo "</div>";
     }
     
-    // Test insert with admin user
-    echo "<h3>Testing Category Insert Operation</h3>";
+    // Seed default categories with admin user
+    echo "<h3>Seeding Default Categories</h3>";
     
     // Get admin user ID
     $adminSQL = "SELECT customer_id FROM customer WHERE customer_email = 'admin@ashesi.edu.gh'";
@@ -107,29 +107,57 @@ try {
         $adminId = $admin['customer_id'];
         
         echo "<p class='info'>ℹ️ Found admin user with ID: " . $adminId . "</p>";
-        
-        // Test insert
-        $testCategory = 'Test Category ' . time();
-        $insertSQL = "INSERT INTO categories (cat_name, created_by) VALUES (?, ?)";
-        $stmt = mysqli_prepare($connection, $insertSQL);
-        
-        if ($stmt) {
-            mysqli_stmt_bind_param($stmt, "si", $testCategory, $adminId);
-            
-            if (mysqli_stmt_execute($stmt)) {
-                $insertId = mysqli_insert_id($connection);
-                echo "<p class='success'>✅ Test category insert successful! Category ID: " . $insertId . "</p>";
-                
-                // Clean up test record
-                mysqli_query($connection, "DELETE FROM categories WHERE cat_id = $insertId");
-                echo "<p class='info'>ℹ️ Test category cleaned up</p>";
+
+        $defaultCategories = [
+            'Breakfast',
+            'Lunch',
+            'Dinner',
+            'Supper',
+            'Dessert',
+            'Locals',
+            'Snacks',
+            'Drinks'
+        ];
+
+        $inserted = 0;
+        foreach ($defaultCategories as $catName) {
+            // Check if exists
+            $checkStmt = mysqli_prepare($connection, "SELECT cat_id FROM categories WHERE cat_name = ?");
+            if ($checkStmt) {
+                mysqli_stmt_bind_param($checkStmt, "s", $catName);
+                mysqli_stmt_execute($checkStmt);
+                mysqli_stmt_store_result($checkStmt);
+                $exists = mysqli_stmt_num_rows($checkStmt) > 0;
+                mysqli_stmt_close($checkStmt);
             } else {
-                echo "<p class='error'>❌ Test category insert failed: " . mysqli_stmt_error($stmt) . "</p>";
+                echo "<p class='error'>❌ Failed to prepare existence check: " . mysqli_error($connection) . "</p>";
+                continue;
             }
-            
-            mysqli_stmt_close($stmt);
+
+            if ($exists) {
+                echo "<p class='info'>ℹ️ Category '<strong>" . htmlspecialchars($catName) . "</strong>' already exists. Skipping.</p>";
+                continue;
+            }
+
+            $insertStmt = mysqli_prepare($connection, "INSERT INTO categories (cat_name, created_by) VALUES (?, ?)");
+            if ($insertStmt) {
+                mysqli_stmt_bind_param($insertStmt, "si", $catName, $adminId);
+                if (mysqli_stmt_execute($insertStmt)) {
+                    $inserted++;
+                    echo "<p class='success'>✅ Inserted category '<strong>" . htmlspecialchars($catName) . "</strong>'</p>";
+                } else {
+                    echo "<p class='error'>❌ Failed to insert '<strong>" . htmlspecialchars($catName) . "</strong>': " . mysqli_stmt_error($insertStmt) . "</p>";
+                }
+                mysqli_stmt_close($insertStmt);
+            } else {
+                echo "<p class='error'>❌ Failed to prepare insert for '<strong>" . htmlspecialchars($catName) . "</strong>': " . mysqli_error($connection) . "</p>";
+            }
+        }
+
+        if ($inserted === 0) {
+            echo "<p class='info'>ℹ️ No new categories were inserted.</p>";
         } else {
-            echo "<p class='error'>❌ Failed to prepare category insert statement: " . mysqli_error($connection) . "</p>";
+            echo "<p class='success'>✅ Seed complete: $inserted categories inserted.</p>";
         }
     } else {
         echo "<p class='error'>❌ Admin user not found. Please run <a href='setup_admin.php'>setup_admin.php</a> first.</p>";
