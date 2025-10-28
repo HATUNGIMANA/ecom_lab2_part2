@@ -1,6 +1,6 @@
 <?php
-require_once '../settings/core.php';
-require_once '../controllers/category_controller.php';
+require_once __DIR__ . '/../settings/core.php';
+require_once __DIR__ . '/../controllers/category_controller.php';
 
 // Enable error reporting for debugging
 error_reporting(E_ALL);
