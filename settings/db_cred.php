@@ -1,27 +1,42 @@
 <?php
 //Database credentials
 // Settings/db_cred.php
+// IMPORTANT: Update these values for your school server!
 
-// define('DB_HOST', 'localhost');
-// define('DB_USER', 'root');
-// define('DB_PASS', '');
-// define('DB_NAME', 'dbforlab');
-
-
-if (!defined("SERVER")) {
-    define("SERVER", "localhost");
+// For LOCAL development (XAMPP)
+if ($_SERVER['SERVER_NAME'] == 'localhost' || $_SERVER['SERVER_NAME'] == '127.0.0.1') {
+    if (!defined("SERVER")) {
+        define("SERVER", "localhost");
+    }
+    
+    if (!defined("USERNAME")) {
+        define("USERNAME", "root");
+    }
+    
+    if (!defined("PASSWD")) {
+        define("PASSWD", "");
+    }
+    
+    if (!defined("DATABASE")) {
+        define("DATABASE", "shoppn");
+    }
 }
-
-if (!defined("USERNAME")) {
-    define("USERNAME", "root");
-}
-
-if (!defined("PASSWD")) {
-    define("PASSWD", "");
-}
-
-if (!defined("DATABASE")) {
-    // Use the database name from the provided SQL dump
-    define("DATABASE", "shoppn");
+// For SCHOOL SERVER - Update these with your actual credentials!
+else {
+    if (!defined("SERVER")) {
+        define("SERVER", "localhost");
+    }
+    
+    if (!defined("USERNAME")) {
+        define("USERNAME", "eric_hatungimana");  // Update this!
+    }
+    
+    if (!defined("PASSWD")) {
+        define("PASSWD", "");  // Update with your database password!
+    }
+    
+    if (!defined("DATABASE")) {
+        define("DATABASE", "eric_hatungimana_db");  // Update this!
+    }
 }
 ?>
