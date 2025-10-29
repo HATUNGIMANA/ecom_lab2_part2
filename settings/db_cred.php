@@ -1,24 +1,19 @@
-
 <?php
-class DatabaseConnection {
-    private $host = '';
-    private $db_name = 'ecommerce_2025A_eric_hatungimana';
-    private $username = 'eric.hatungimana';
-    private $password = '6100202629';
-    private $conn;
 
-    public function getConnection() {
-        $this->conn = null;
-        
-        try {
-            $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch(PDOException $exception) {
-            echo "Connection error: " . $exception->getMessage();
-        }
-        
-        return $this->conn;
-    }
+if (!defined("SERVER")) {
+    define("SERVER", "localhost");
+}
+
+if (!defined("USERNAME")) {
+    define("USERNAME", "eric.hatungimana");
+}
+
+if (!defined("PASSWD")) {
+    define("PASSWD", "6100202629");
+}
+
+if (!defined("DATABASE")) {
+    // Use the database name from the provided SQL dump
+    define("DATABASE", "ecommerce_2025A_eric_hatungimana");
 }
 ?>
-
