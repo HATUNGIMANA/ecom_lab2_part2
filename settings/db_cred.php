@@ -28,15 +28,16 @@ else {
     }
     
     if (!defined("USERNAME")) {
-        define("USERNAME", "eric_hatungimana");  // Update this!
+        define("USERNAME", "eric.hatungimana");  
     }
     
     if (!defined("PASSWD")) {
-        define("PASSWD", "");  // Update with your database password!
+        define("PASSWD", "6100202629");
+        
     }
     
     if (!defined("DATABASE")) {
-        define("DATABASE", "eric_hatungimana_db");  // Update this!
+        define("DATABASE", "eric.hatungimana_db");  
     }
 }
 ?>

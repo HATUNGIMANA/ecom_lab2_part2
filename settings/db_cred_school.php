@@ -14,17 +14,18 @@ if (!defined("SERVER")) {
 
 if (!defined("USERNAME")) {
     // Update with your school server database username
-    define("USERNAME", "your_username");
+    define("USERNAME", "eric.hatungimana");
 }
 
 if (!defined("PASSWD")) {
     // Update with your school server database password
-    define("PASSWD", "your_password");
+    define("PASSWD", "6100202629");
 }
 
 if (!defined("DATABASE")) {
     // Update with your school server database name
-    define("DATABASE", "your_database_name");
+    define("DATABASE", "shoppn");
 }
 ?>
+
 
