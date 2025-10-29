@@ -1,10 +1,10 @@
 
 <?php
 class DatabaseConnection {
-    private $host = 'localhost';
+    private $host = '';
     private $db_name = 'ecommerce_2025A_eric_hatungimana';
     private $username = 'eric.hatungimana';
-    private $password = '6100202629!';
+    private $password = '6100202629';
     private $conn;
 
     public function getConnection() {
