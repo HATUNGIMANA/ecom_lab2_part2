@@ -9,7 +9,7 @@
 
 if (!defined("SERVER")) {
     // Change 'localhost' if your school server uses a different host
-    define("SERVER", "localhost");
+    define("SERVER", "");
 }
 
 if (!defined("USERNAME")) {
@@ -24,7 +24,7 @@ if (!defined("PASSWD")) {
 
 if (!defined("DATABASE")) {
     // Update with your school server database name
-    define("DATABASE", "shoppn");
+    define("DATABASE", "ecommerce_2025A_eric_hatungimana");
 }
 ?>
 

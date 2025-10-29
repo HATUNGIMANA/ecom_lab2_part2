@@ -24,7 +24,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost' || $_SERVER['SERVER_NAME'] == '127.0.
 // For SCHOOL SERVER - Update these with your actual credentials!
 else {
     if (!defined("SERVER")) {
-        define("SERVER", "localhost");
+        define("SERVER", "");
     }
     
     if (!defined("USERNAME")) {
@@ -37,7 +37,7 @@ else {
     }
     
     if (!defined("DATABASE")) {
-        define("DATABASE", "eric.hatungimana_db");  
+        define("DATABASE", "ecommerce_2025A_eric_hatungimana");  
     }
 }
 ?>
