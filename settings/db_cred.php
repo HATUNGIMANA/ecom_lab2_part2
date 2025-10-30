@@ -1,7 +1,7 @@
 <?php
 
 if (!defined("SERVER")) {
-    define("SERVER", "localhost");
+    define("SERVER", "169.239.251.102");
 }
 
 if (!defined("USERNAME")) {
